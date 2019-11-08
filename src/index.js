@@ -1,13 +1,33 @@
 require('dotenv').config();
 const express = require('express');
 const db = require('./db/models/index');
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-// auto create the database table for User model (if not exist)
-// use the option "force" to drop and create the table again "db.User.sync({ force: true })"
+// Sequelize store
+var myStore = new SequelizeStore({
+  db: db.sequelize
+});
+
+// Express-session middleware with sequelize store
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: myStore
+  })
+);
+
+// sync sequelize store: auto create the database table (if not exist)
+// use the option "force" to drop and create the table again "myStore.sync({ force: true })"
+myStore.sync();
+
+// sync User model
 db.User.sync();
 
 app.use(express.json());
