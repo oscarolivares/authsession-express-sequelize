@@ -1,9 +1,14 @@
 require('dotenv').config();
 const express = require('express');
+const db = require('./db/models/index');
 
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
+
+// auto create the database table for User model (if not exist)
+// use the option "force" to drop and create the table again "db.User.sync({ force: true })"
+db.User.sync();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

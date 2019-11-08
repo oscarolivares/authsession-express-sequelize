@@ -37,9 +37,11 @@ Creación de la db
 
 En primer lugar se creó el archivo ".sequelizerc" en el root para definir la estructura.
 
-Luego se inicializó sequelize
+- Inicialización de sequelize
 
-    $ sequelize init
+```
+sequelize init
+```
 
 Nota: para corregir la advertencia "please use IANA standard timezone format ('Etc/GTM0')..." se agregó la siguiente configuración a "config.json"
 
@@ -51,10 +53,45 @@ Nota: para corregir la advertencia "please use IANA standard timezone format ('E
 }
 ```
 
-Creación del primer modelo
+- Creación del primer modelo
 
-    $ sequelize model:generate --name User --attributes email:string
+```
+sequelize model:generate --name User --attributes email:string
+```
 
-Ejecutando su migración
+- Ejecutando su migración
 
-    $ sequelize db:migrate --env development
+```
+sequelize db:migrate --env development
+```
+
+- Se editó el modelo de usuario
+
+- Se agrega un procedimiento para comprobar la conexión a la db en el index de los modelos
+
+- Generando una semilla para poblar la db con datos de prueba
+
+```
+sequelize seed:generate --name demo-user
+```
+
+Luego de generada la semilla se lleno con datos de prueba.
+
+- Poblando la db con los datos de prueba
+
+```
+sequelize db:seed:all
+```
+
+- Borrando las semillas de la db
+
+```
+sequelize db:seed:undo:all
+```
+
+- Borrando la tabla completa para volverla a crear completamente limpia. Esto no se aplicó porque en este punto la migración no está actualizada, en su lugar se agregó la opción "force: true" al método sync del modelo de usuario
+
+```
+sequelize db:migrate:undo:all
+sequelize db:migrate --env development
+```
