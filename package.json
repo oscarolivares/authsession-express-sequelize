@@ -1,0 +1,34 @@
+{
+  "name": "authsession-express-sequelize",
+  "version": "1.0.0",
+  "description": "Authentication and session manager for express with express-session, passport and sequelize",
+  "main": "index.js",
+  "repository": "git@github.com:oscarolivares/authsession-express-sequelize.git",
+  "author": "Oscar Olivares <oscarolivares625@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "node": ">= 12.13.0",
+    "npm": ">= 6.12.0",
+    "yarn": ">= 1.19.1"
+  },
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "connect-session-sequelize": "^6.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mariadb": "^2.1.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.21.2",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "nodemon": "^1.19.4"
+  }
+}
