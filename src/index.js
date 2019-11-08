@@ -3,6 +3,10 @@ const express = require('express');
 const db = require('./db/models/index');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const passport = require('passport');
+const authRoutes = require('./routes/auth.routes');
+
+require('./passport');
 
 const app = express();
 
@@ -30,6 +34,9 @@ myStore.sync();
 // sync User model
 db.User.sync();
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,6 +44,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Ready');
 });
+
+app.use('/auth', authRoutes);
 
 // Status 404 handler
 app.use((req, res, next) => {
