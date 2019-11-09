@@ -1,4 +1,5 @@
 require('dotenv').config();
+const config = require('./config/config');
 const express = require('express');
 const db = require('./db/models/index');
 const session = require('express-session');
@@ -10,7 +11,7 @@ require('./passport');
 
 const app = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.port);
 
 // Sequelize store
 var myStore = new SequelizeStore({
@@ -20,7 +21,7 @@ var myStore = new SequelizeStore({
 // Express-session middleware with sequelize store
 app.use(
   session({
-    secret: process.env.SECRET || 'secret',
+    secret: config.secret,
     resave: false,
     saveUninitialized: true,
     store: myStore

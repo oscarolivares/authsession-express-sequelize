@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { User } = require('../db/models');
 const testPasswordStrength = require('../helpers/testPasswordStrength');
-const authConfig = require('../config/auth.config');
+const config = require('../config/config');
 
 // Controller for signup
 async function signup(req, res, next) {
@@ -24,7 +24,7 @@ async function signup(req, res, next) {
       return res.status(400).send('Email exist');
     }
 
-    if (passwordStrenght !== authConfig.passwordRestriction) {
+    if (passwordStrenght !== config.passwordRestriction) {
       return res.status(400).send('Invalid password');
     }
 
@@ -73,8 +73,8 @@ function login(req, res, next) {
         return next(err);
       }
 
-      // If remember is set, set cookie expiration in cookieMaxDays from "./config/auth.config.js"
-      let sessionCookieMaxAge = authConfig.cookieMaxDays * 24 * 60 * 60 * 1000;
+      // If remember is set, set cookie expiration in cookieMaxDays from "config.js"
+      let sessionCookieMaxAge = config.cookieMaxDays * 24 * 60 * 60 * 1000;
       req.session.cookie.maxAge = req.body.remember
         ? sessionCookieMaxAge
         : null;

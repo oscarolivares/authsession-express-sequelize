@@ -6,11 +6,12 @@
  * Returns a promise that resolves in the hash
  */
 
+const config = require('../config/config');
 const bcrypt = require('bcrypt');
 
 module.exports = function hashPassword(password) {
   return new Promise((resolve, reject) => {
-    const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;
+    const rounds = parseInt(config.rounds);
 
     bcrypt.genSalt(rounds, (err, salt) => {
       if (err) {
