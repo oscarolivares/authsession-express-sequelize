@@ -1,7 +1,9 @@
-'use strict';
+const hashPassword = require('../../helpers/hashPassword');
+
+('use strict');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -18,7 +20,7 @@ module.exports = {
       [
         {
           email: 'admin@mail.com',
-          password: 'Admin123..',
+          password: await hashPassword('Admin123..'),
           firstName: 'John',
           lastName: 'Doe',
           role: 'admin',
@@ -28,7 +30,7 @@ module.exports = {
         },
         {
           email: 'user@mail.com',
-          password: 'User123..',
+          password: await hashPassword('User123..'),
           firstName: 'Jimmy',
           lastName: 'Carter',
           role: 'user',
@@ -38,7 +40,7 @@ module.exports = {
         },
         {
           email: 'guest@mail.com',
-          password: 'Guest123..',
+          password: await hashPassword('Guest123..'),
           firstName: 'Elizabeth',
           lastName: 'Taylor',
           role: 'guest',

@@ -20,7 +20,7 @@ var myStore = new SequelizeStore({
 // Express-session middleware with sequelize store
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: process.env.SECRET || 'secret',
     resave: false,
     saveUninitialized: true,
     store: myStore

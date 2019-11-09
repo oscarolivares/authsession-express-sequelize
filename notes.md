@@ -29,9 +29,17 @@ alternativamente se puede seguir usando el módulo local indicando la ruta compl
 
 ## Database
 
-Creación de la db
+```
+# Crear la base de datos "dev"
+mysql> CREATE DATABASE `dev` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
-    $ CREATE DATABASE `authsession_dev` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+# Crear el usuario "dev@localhost" con password "dev"
+mysql> CREATE USER dev@localhost IDENTIFIED BY 'dev';
+
+# Asignar permisos a la base de datos "dev" para el usuario "dev@localhost"
+mysql> GRANT ALL PRIVILEGES ON dev.* TO dev@localhost;
+mysql> FLUSH PRIVILEGES;
+```
 
 ## ORM Sequelize
 

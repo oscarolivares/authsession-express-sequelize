@@ -61,6 +61,10 @@ function login(req, res, next) {
     if (!user) {
       return res.status(400).send(info.message);
     }
+    // Check if the user is enabled
+    if (!user.enabled) {
+      return res.status(403).send('Forbidden user');
+    }
 
     // If all is ok login the user
     req.logIn(user, err => {
