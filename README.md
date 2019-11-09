@@ -47,7 +47,7 @@ _Al ejecutar por primera vez se crearán automáticamente las tablas necesarias.
 
 ## Configuración
 
-- Variables globales (por defecto usa los valores indicados a continuación):
+- Las siguientes opciones de configuración se pueden definir como variables de entorno o editarlas directamente en los archivos de configuración en la carpeta "config" (por defecto usa los valores indicados a continuación):
 
 ```
 # Definir el entorno, posibles valores: development | test | production
@@ -61,13 +61,7 @@ SECRET=secret
 
 # Número de rondas que usará el algoritmo Blowfish para crear el hash de la contraseña
 BCRYPT_ROUNDS=10
-```
 
-Las siguientes opciones de configuración se pueden definir por medio de variables de entorno o directamente en los archivos de configuración dentro de la carpeta "config" (por defecto usa los valores indicados)
-
-- Configuraciones relativas a la autenticación y sesiones
-
-```
 # Duración máxima de la cookie de sessión. Aplica cuando remember=true en el request de inicio de sesión, si remember=false la sesión expirará al cerrar el navegador
 COOKIE_MAX_DAYS=30
 
@@ -75,10 +69,10 @@ COOKIE_MAX_DAYS=30
 PASSWORD_RESTRICTION=strong
 ```
 
-- Configuraciones relativas a la db en modo de producción (NODE_ENV=production)
+- Cuando se define el entorno como producción (NODE_ENV=production) se deben definir las siguientes variables de entorno (no poseen valores por defecto):
 
 ```
-# Database
+# Datos para la conexión con la base de datos cuando NODE_ENV=production
 DB_USERNAME=
 DB_PASSWORD=
 DB_NAME=
