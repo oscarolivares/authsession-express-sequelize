@@ -1,6 +1,6 @@
 # authsession-express-sequelize
 
-Autenticación y manejo de sesiones para express con express-session, passport y sequelize.
+**Autenticación y manejo de sesiones para express con express-session, passport y sequelize.**
 
 Soporta:
 
@@ -11,7 +11,7 @@ Soporta:
 - Inhabilitar inicio de sesión para un usuario en particular
 - Opción para recordar la sesión (alarga el tiempo de vida de la cookie de sesión)
 
-No posee vistas fuera de la caja. Las vistas deben crearse a parte o utilizar algún software como Postman.
+_No posee vistas fuera de la caja. Las vistas deben crearse a parte o utilizar algún software como Postman._
 
 ## Implementación
 
@@ -23,7 +23,7 @@ $ yarn install
 
 2. Crear la base de datos.
 
-Ejemplo para la configuración por defecto (development):
+Creación de ejemplo en el entorno por defecto (development):
 
 ```
 # Crear la base de datos "dev"
@@ -37,33 +37,45 @@ mysql> GRANT ALL PRIVILEGES ON dev.* TO dev@localhost;
 mysql> FLUSH PRIVILEGES;
 ```
 
-3. Definir las siguientes variables de entorno (opcional, por defecto usa estos mismos valores):
-
-```
-# Enviroment: development | test | production
-NODE_ENV=development
-
-# Server port number
-PORT=3000
-
-# Session encryption secret
-SECRET=secret
-
-# Number of rounds for Blowfish algorithm for hashing user password
-BCRYPT_ROUNDS=10
-```
-
-4. Ejecutar la aplicación:
+3. Ejecutar la aplicación:
 
 ```
 $ yarn start
 ```
 
-Al ejecutar por primera vez se crearán automáticamente las tablas necesarias.
+_Al ejecutar por primera vez se crearán automáticamente las tablas necesarias._
 
-El archivo "./db/config.js". Contiene la configuración de sequelize (credenciales de la db, etc.)
+## Configuración
 
-En producción utiliza las siguientes variables de entorno:
+- Variables globales (por defecto usa los valores indicados a continuación):
+
+```
+# Definir el entorno, posibles valores: development | test | production
+NODE_ENV=development
+
+# Puerto de escucha
+PORT=3000
+
+# Secreto para encriptar las sesiones
+SECRET=secret
+
+# Número de rondas que usará el algoritmo Blowfish para crear el hash de la contraseña
+BCRYPT_ROUNDS=10
+```
+
+Las siguientes opciones de configuración se pueden definir por medio de variables de entorno o directamente en los archivos de configuración dentro de la carpeta "config" (por defecto usa los valores indicados)
+
+- Configuraciones relativas a la autenticación y sesiones
+
+```
+# Duración máxima de la cookie de sessión. Aplica cuando remember=true en el request de inicio de sesión, si remember=false la sesión expirará al cerrar el navegador
+COOKIE_MAX_DAYS=30
+
+# Nivel de seguridad de contraseña permitido, posibles valores: strong | regular | weak
+PASSWORD_RESTRICTION=strong
+```
+
+- Configuraciones relativas a la db en modo de producción (NODE_ENV=production)
 
 ```
 # Database
@@ -72,3 +84,5 @@ DB_PASSWORD=
 DB_NAME=
 DB_HOSTNAME=
 ```
+
+_Para otras configuraciones de la db se edita manualmente el archivo "db.config.js" de la carpeta "config"_
